@@ -131,15 +131,9 @@ export default function AboutSection() {
                   <img
                     src="/web3.png"
                     alt="Street ID Camera Shot"
-                    className="w-full h-full object-cover grayscale contrast-125"
+                    className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
-                  {/* Cyber digicam screen graphic overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-10 h-7 border border-[#ff3b19] rounded-sm bg-black/40 flex items-center justify-center">
-                      <span className="text-[7px] font-mono text-[#ff3b19] font-bold">REC ●</span>
-                    </div>
-                  </div>
                 </div>
 
                 <div className="mt-1.5 flex justify-between items-center px-1">

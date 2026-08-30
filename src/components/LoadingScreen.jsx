@@ -66,11 +66,11 @@ export default function LoadingScreen({ onLoadingComplete, minDuration = 2200 })
           {/* Top Bar Header */}
           <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#ff3b19] to-[#646cff] flex items-center justify-center p-[2px] shadow-lg shadow-[#ff3b19]/20">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center">
                 <img
                   src="/Logo1.png"
-                  alt="Logo"
-                  className="w-full h-full object-contain filter invert"
+                  alt="Penta Prizm Logo"
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
