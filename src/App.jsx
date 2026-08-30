@@ -21,19 +21,25 @@ export default function App() {
 
   const handleSelectServiceFromGrid = (serviceId) => {
     const serviceNames = {
-      projects: 'Кастом для проектов (Музыканты, бренды)',
-      design: 'Авторский дизайн / Коллекция',
-      custom: 'Кастом одежды под заказ',
-      upcycling: 'Апсайклинг старых вещей',
+      projects: 'Brand Strategy & Identity',
+      design: 'Digital Experiences & Web',
+      custom: 'Creative Content & Media',
+      upcycling: 'Digital Marketing & Growth',
     };
-    handleOpenContact(serviceNames[serviceId] || 'Индивидуальный заказ');
+    handleOpenContact(serviceNames[serviceId] || 'Custom Project Inquiry');
   };
 
   const handleOpenCustomWithItem = (item) => {
+    if (typeof item === 'string') {
+      handleOpenContact(item);
+      return;
+    }
     setPreselectedCustomItem(item);
     const customSection = document.getElementById('custom-builder');
     if (customSection) {
       customSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      handleOpenContact('Custom Project Inquiry');
     }
   };
 

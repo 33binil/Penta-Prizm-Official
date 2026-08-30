@@ -1,6 +1,6 @@
 {
   "name": "STREET ID STUDIO",
-  "description": "Авторская студия одежды и кастомизации. Кастом для проектов, авторский дизайн, апсайклинг и уличная мода.",
+  "description": "Creative design and digital studio. Branding, content creation, web development, app engineering, and digital growth.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

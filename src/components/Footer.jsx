@@ -8,11 +8,11 @@ export default function Footer({ onOpenContact }) {
   };
 
   return (
-    <footer id="contacts" className="relative w-full bg-[#070707] text-white pt-20 pb-12 overflow-hidden border-t border-white/10">
-      <div className="w-full px-4 sm:px-6 relative z-20">
+    <footer id="contacts" className="relative w-full bg-[#070707] text-white pt-16 sm:pt-20 pb-12 overflow-hidden border-t border-white/10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
         {/* Main Footer Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-14 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 pb-12 sm:pb-14 border-b border-white/10">
           
           {/* Brand Col */}
           <div className="md:col-span-5 flex flex-col justify-between">
@@ -35,7 +35,7 @@ export default function Footer({ onOpenContact }) {
                 href="https://t.me/"
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors min-w-[40px] min-h-[40px]"
                 aria-label="Telegram"
               >
                 <Send className="w-4 h-4" />
@@ -44,7 +44,7 @@ export default function Footer({ onOpenContact }) {
                 href="https://vk.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors font-bold text-xs"
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors font-bold text-xs min-w-[40px] min-h-[40px]"
                 aria-label="VK"
               >
                 VK
@@ -53,7 +53,7 @@ export default function Footer({ onOpenContact }) {
                 href="https://behance.net/"
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors font-bold text-xs"
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors font-bold text-xs min-w-[40px] min-h-[40px]"
                 aria-label="Behance"
               >
                 Be
@@ -62,7 +62,7 @@ export default function Footer({ onOpenContact }) {
                 href="https://wa.me/"
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors min-w-[40px] min-h-[40px]"
                 aria-label="WhatsApp"
               >
                 <Phone className="w-4 h-4" />
@@ -73,14 +73,14 @@ export default function Footer({ onOpenContact }) {
           {/* Nav Links */}
           <div className="md:col-span-3">
             <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-4">
-              // НАВИГАЦИЯ
+              // NAVIGATION
             </span>
             <div className="flex flex-col gap-2.5">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.id}
                   href={link.href}
-                  className="font-montserrat text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white hover:translate-x-1 transition-all"
+                  className="font-montserrat text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white hover:translate-x-1 transition-all py-1"
                 >
                   {link.label}
                 </a>
@@ -100,13 +100,13 @@ export default function Footer({ onOpenContact }) {
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#ff3b19] shrink-0" />
-                <a href="mailto:pentaprizmofficial@gmail.com" className="hover:text-white underline">
+                <a href="mailto:pentaprizmofficial@gmail.com" className="hover:text-white underline py-0.5">
                   pentaprizmofficial@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#ff3b19] shrink-0" />
-                <a href="tel:+917306043445" className="hover:text-white">
+                <a href="tel:+917306043445" className="hover:text-white py-0.5">
                   +91 73060 43445
                 </a>
               </div>
@@ -115,9 +115,9 @@ export default function Footer({ onOpenContact }) {
             <div className="mt-6">
               <button
                 onClick={onOpenContact}
-                className="w-full bg-[#ff3b19] hover:bg-[#e02f0e] text-white font-montserrat font-bold text-xs uppercase tracking-wider py-3 rounded-full transition-transform active:scale-95 cursor-pointer"
+                className="w-full bg-[#ff3b19] hover:bg-[#e02f0e] text-white font-montserrat font-bold text-xs uppercase tracking-wider py-3.5 rounded-full transition-transform active:scale-95 cursor-pointer min-h-[44px]"
               >
-                Связаться с нами
+                Get In Touch
               </button>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function Footer({ onOpenContact }) {
         </div>
 
         {/* Bottom copyright line */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500 text-center sm:text-left">
           <div>
             © 2026 PENTA PRIZM. ALL RIGHTS RESERVED.
           </div>
@@ -133,9 +133,9 @@ export default function Footer({ onOpenContact }) {
           <div className="flex items-center gap-4">
             <button
               onClick={scrollToTop}
-              className="flex items-center gap-1 text-white/70 hover:text-[#ff3b19] transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 text-white/70 hover:text-[#ff3b19] transition-colors cursor-pointer py-1 min-h-[36px]"
             >
-              <span>НАВЕРХ</span>
+              <span>BACK TO TOP</span>
               <ArrowUp className="w-3.5 h-3.5" />
             </button>
           </div>
