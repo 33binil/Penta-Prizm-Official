@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { ArrowUp, Heart, Instagram, Facebook, Linkedin, Send, MessageCircle, MapPin, Mail, Phone } from 'lucide-react';
 import { NAV_LINKS } from '../data/studioData.js';
 
@@ -12,7 +13,13 @@ export default function Footer({ onOpenContact }) {
       <div className="w-full px-4 sm:px-8 lg:px-12 relative z-20">
         
         {/* Main Footer Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 pb-12 sm:pb-14 border-b border-white/10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 pb-12 sm:pb-14 border-b border-white/10"
+        >
           
           {/* Brand Col */}
           <div className="md:col-span-5 flex flex-col justify-between">
@@ -133,7 +140,7 @@ export default function Footer({ onOpenContact }) {
             </div>
           </div>
 
-        </div>
+        </motion.div>
 
         {/* Bottom copyright line */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500 text-center sm:text-left">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { Lightbulb, Target, Paintbrush, Code2, TrendingUp, Rocket, Sparkles } from 'lucide-react';
 import { PROCESS_STEPS } from '../data/studioData.js';
 
@@ -10,12 +11,24 @@ export default function ProcessSection({ onStartCustom }) {
   return (
     <section id="process" className="relative w-full bg-[#0a0a0a] text-white py-24 overflow-hidden border-t border-white/10">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-10 w-80 h-80 bg-[#ff3b19]/10 rounded-full blur-[130px] pointer-events-none" />
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="absolute top-1/3 left-10 w-80 h-80 bg-[#ff3b19]/10 rounded-full blur-[130px] pointer-events-none"
+      />
 
       <div className="w-full px-4 sm:px-8 lg:px-12 relative z-20">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4"
+        >
           <div>
             <span className="text-[#ff3b19] font-mono text-xs uppercase tracking-widest font-bold block mb-2">
               // HOW IT WORKS
@@ -27,7 +40,7 @@ export default function ProcessSection({ onStartCustom }) {
           <p className="font-montserrat text-sm text-neutral-400 max-w-md">
             From understanding your idea and business goals to creating, launching, and continuously improving the final digital experience.
           </p>
-        </div>
+        </motion.div>
 
         {/* 6 Process Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -36,12 +49,17 @@ export default function ProcessSection({ onStartCustom }) {
             const isActive = activeStep === idx;
 
             return (
-              <div
+              <motion.div
                 key={step.num}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -6 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.5, delay: 0.08 * idx }}
                 onMouseEnter={() => setActiveStep(idx)}
                 className={`relative rounded-2xl p-6 sm:p-7 border transition-all duration-300 flex flex-col justify-between cursor-pointer ${
                   isActive
-                    ? 'bg-neutral-900 border-[#ff3b19] shadow-2xl shadow-[#ff3b19]/20 -translate-y-2'
+                    ? 'bg-neutral-900 border-[#ff3b19] shadow-2xl shadow-[#ff3b19]/20'
                     : 'bg-neutral-950/70 border-white/15 hover:border-white/40'
                 }`}
               >
@@ -72,13 +90,19 @@ export default function ProcessSection({ onStartCustom }) {
                     {isActive ? '● IN FOCUS' : '○'}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Closing note */}
-        <div className="mt-14 p-6 rounded-xl bg-neutral-950 border border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-14 p-6 rounded-xl bg-neutral-950 border border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4"
+        >
           <span className="font-montserrat text-sm text-neutral-300 font-medium">
             Every project is built around your brand, your audience, and your goals.
           </span>
@@ -88,7 +112,7 @@ export default function ProcessSection({ onStartCustom }) {
           >
             Start Your Project →
           </button>
-        </div>
+        </motion.div>
 
       </div>
     </section>

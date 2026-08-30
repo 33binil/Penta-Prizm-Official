@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { ArrowUpRight, Flame, Sparkles, Check, ChevronRight } from 'lucide-react';
 import { SERVICES } from '../data/studioData.js';
 
@@ -11,12 +12,24 @@ export default function WhatWeDo({ onSelectService }) {
       <div className="absolute top-0 left-0 right-0 h-8 bg-[#f4f4f2] torn-edge-bottom z-10" />
 
       {/* Ambient background glow */}
-      <div className="absolute top-1/3 left-1/4 w-80 sm:w-96 h-80 sm:h-96 bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="absolute top-1/3 left-1/4 w-80 sm:w-96 h-80 sm:h-96 bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none"
+      />
 
       <div className="w-full px-4 sm:px-8 lg:px-12 relative z-20 pt-6">
         
         {/* Section Header */}
-        <div className="mb-8 sm:mb-12 lg:mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-8 sm:mb-12 lg:mb-14"
+        >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono tracking-widest text-[#ff3b19] uppercase mb-3">
             <span className="w-2 h-2 rounded-full bg-[#ff3b19] animate-pulse"></span>
             EXPERTISE
@@ -24,14 +37,27 @@ export default function WhatWeDo({ onSelectService }) {
           <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase leading-none">
             WHAT WE DO
           </h2>
-          <div className="h-1 w-20 sm:w-24 bg-[#ff3b19] mt-3" />
-        </div>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: '6rem' }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="h-1 bg-[#ff3b19] mt-3"
+          />
+        </motion.div>
 
         {/* 4-Quadrant Custom Grid Matching the Exact Poster Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           
           {/* 1. TOP-LEFT: BRANDING */}
-          <div className="relative flex flex-col justify-between p-5 sm:p-7 lg:p-8 rounded-xl sm:rounded-2xl border border-white/20 bg-neutral-950/80 backdrop-blur-sm min-h-[240px] sm:min-h-[260px] group hover:border-[#ff3b19]/60 transition-all duration-300">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -4 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6 }}
+            className="relative flex flex-col justify-between p-5 sm:p-7 lg:p-8 rounded-xl sm:rounded-2xl border border-white/20 bg-neutral-950/80 backdrop-blur-sm min-h-[240px] sm:min-h-[260px] group hover:border-[#ff3b19]/60 transition-all duration-300"
+          >
             <div>
               <div className="flex justify-between items-start mb-3 sm:mb-4">
                 <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold">
@@ -62,13 +88,19 @@ export default function WhatWeDo({ onSelectService }) {
                 Learn More
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* 2. TOP-RIGHT: DIGITAL EXPERIENCES */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          >
             
             {/* Box */}
-            <div className="flex flex-col justify-between p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-white/20 bg-neutral-950/80 backdrop-blur-sm group hover:border-[#ff3b19]/60 transition-all">
+            <div className="flex flex-col justify-between p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-white/20 bg-neutral-950/80 backdrop-blur-sm group hover:border-[#ff3b19]/60 hover:-translate-y-1 transition-all duration-300">
               <div>
                 <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-2 sm:mb-3">
                   // 02. DIGITAL EXPERIENCES
@@ -97,16 +129,21 @@ export default function WhatWeDo({ onSelectService }) {
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-
               <div className="absolute bottom-2 right-2 font-mono text-[9px] text-white/60 uppercase">
                 DROP // 01
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
-          {/* 3. BOTTOM-LEFT: PHOTO CARD WITH 'PP' + CREATIVE CONTENT + 'DONT COPY — CREATE' */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* 3. BOTTOM-LEFT: PHOTO CARD WITH 'PP' + CREATIVE CONTENT */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          >
             
             {/* Photo Card with 'PP' Spray Tag */}
             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 min-h-[200px] sm:min-h-[220px] bg-neutral-900 group">
@@ -127,7 +164,7 @@ export default function WhatWeDo({ onSelectService }) {
             </div>
 
             {/* Box: CREATIVE CONTENT */}
-            <div className="flex flex-col justify-between p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-white/20 bg-neutral-950/80 backdrop-blur-sm group hover:border-[#ff3b19]/60 transition-all">
+            <div className="flex flex-col justify-between p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-white/20 bg-neutral-950/80 backdrop-blur-sm group hover:border-[#ff3b19]/60 hover:-translate-y-1 transition-all duration-300">
               <div>
                 <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-2 sm:mb-3">
                   // 03. CREATIVE CONTENT
@@ -146,13 +183,19 @@ export default function WhatWeDo({ onSelectService }) {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
-          {/* 4. BOTTOM-RIGHT: DIGITAL GROWTH (Box + Model Duo Photo) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* 4. BOTTOM-RIGHT: DIGITAL GROWTH */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+          >
             
             {/* Box: DIGITAL GROWTH */}
-            <div className="flex flex-col justify-between p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-white/20 bg-neutral-950/80 backdrop-blur-sm group hover:border-[#ff3b19]/60 transition-all">
+            <div className="flex flex-col justify-between p-5 sm:p-6 rounded-xl sm:rounded-2xl border border-white/20 bg-neutral-950/80 backdrop-blur-sm group hover:border-[#ff3b19]/60 hover:-translate-y-1 transition-all duration-300">
               <div>
                 <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-2 sm:mb-3">
                   // 04. DIGITAL GROWTH
@@ -186,16 +229,22 @@ export default function WhatWeDo({ onSelectService }) {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 
         {/* Closing Line */}
-        <div className="mt-12 sm:mt-16 text-center select-none px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mt-12 sm:mt-16 text-center select-none px-4"
+        >
           <span className="font-marker text-xl sm:text-3xl lg:text-4xl text-[#ff3b19] spray-text tracking-wide -rotate-1 inline-block">
             DON'T JUST EXIST — CREATE IMPACT.
           </span>
-        </div>
+        </motion.div>
 
       </div>
     </section>

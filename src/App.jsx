@@ -55,12 +55,12 @@ export default function App() {
       )}
 
       {/* Top Fixed Header */}
-      <Header onOpenContact={() => handleOpenContact()} />
+      <Header onOpenContact={() => handleOpenContact()} isLoaded={!isLoading} />
 
       {/* Main Content Sections */}
       <main className="flex-1 flex flex-col w-full">
         {/* 1. Hero Section */}
-        <Hero onOpenContact={() => handleOpenContact()} />
+        <Hero onOpenContact={() => handleOpenContact()} isLoaded={!isLoading} />
 
         {/* 2. About Studio Section */}
         <AboutSection />
