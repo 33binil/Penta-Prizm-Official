@@ -15,8 +15,10 @@ export default function PortfolioLookbook({ onOpenCustom }) {
   const containerRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [scrollPct, setScrollPct] = useState(0);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
-  // Monitor scroll progress strictly through the 600vh services scroll track
+  // Monitor scroll progress through the services scroll track
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -25,7 +27,7 @@ export default function PortfolioLookbook({ onOpenCustom }) {
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     setScrollPct(latest);
     const totalServices = PENTA_SERVICES.length;
-    // Map scroll percentage evenly across the 6 services (0 to 5)
+    // Map scroll percentage evenly across the 6 services (0 to 5) with smooth clamped mapping
     const computedIndex = Math.min(
       totalServices - 1,
       Math.max(0, Math.floor(latest * totalServices))
@@ -43,24 +45,51 @@ export default function PortfolioLookbook({ onOpenCustom }) {
 
   // Manual smooth scroll jump to a specific service step
   const scrollToService = (index) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current) {
+      setCurrentIndex(index);
+      return;
+    }
     const containerTop = containerRef.current.offsetTop;
     const scrollableDistance = containerRef.current.offsetHeight - window.innerHeight;
     const targetScroll = containerTop + (index / (PENTA_SERVICES.length - 1)) * scrollableDistance;
     window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    setCurrentIndex(index);
+  };
+
+  // Touch handlers for mobile swipe navigation
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+    // Detect intentional horizontal swipe (more horizontal than vertical)
+    if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < 0 && currentIndex < PENTA_SERVICES.length - 1) {
+        scrollToService(currentIndex + 1);
+      } else if (deltaX > 0 && currentIndex > 0) {
+        scrollToService(currentIndex - 1);
+      }
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
   };
 
   return (
     <div id="works" className="w-full">
       
-      {/* ================= 6-SERVICES SCROLL-PINNED TRACK (600vh) ================= */}
-      {/* Pinned strictly for the 6 services, with nothing else inside to cause overlapping */}
+      {/* ================= 6-SERVICES SCROLL-PINNED TRACK ================= */}
+      {/* Generous runway on mobile (750vh) and desktop (600vh) for smooth progression */}
       <div
         ref={containerRef}
-        className="relative w-full h-[600vh] bg-[#080808]"
+        className="relative w-full h-[750vh] sm:h-[600vh] bg-[#080808]"
       >
         {/* Sticky 100vh Viewport */}
-        <div className="sticky top-0 min-h-screen sm:h-screen w-full flex flex-col justify-between py-4 sm:py-6 lg:py-8 px-4 sm:px-8 lg:px-12 text-white overflow-hidden z-20">
+        <div className="sticky top-0 min-h-screen sm:h-screen w-full flex flex-col justify-between py-3.5 sm:py-6 lg:py-8 px-3.5 sm:px-8 lg:px-12 text-white overflow-hidden z-20">
           
           {/* Ambient background glows */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[350px] sm:w-[800px] h-[300px] sm:h-[500px] bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[170px] pointer-events-none" />
@@ -97,7 +126,11 @@ export default function PortfolioLookbook({ onOpenCustom }) {
             </motion.div>
 
             {/* ================= LAYERED STACKED DECK CONTAINER ================= */}
-            <div className="relative w-full my-auto py-2 flex-grow flex items-center justify-center">
+            <div 
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              className="relative w-full my-auto py-2 flex-grow flex items-center justify-center touch-pan-y"
+            >
               
               <div className="w-full relative">
                 
@@ -106,7 +139,7 @@ export default function PortfolioLookbook({ onOpenCustom }) {
                   <div
                     onClick={() => scrollToService(prevIndex)}
                     id="service-background-peeking-card"
-                    className="absolute -top-8 sm:-top-10 lg:-top-12 left-0 right-0 h-28 sm:h-36 rounded-2xl sm:rounded-3xl bg-neutral-950 border border-white/20 shadow-2xl p-3.5 sm:p-6 cursor-pointer transition-all duration-500 hover:border-white/40 group overflow-hidden z-10 select-none"
+                    className="absolute -top-6 sm:-top-10 lg:-top-12 left-0 right-0 h-24 sm:h-36 rounded-2xl sm:rounded-3xl bg-neutral-950 border border-white/20 shadow-2xl p-3 sm:p-6 cursor-pointer transition-all duration-300 hover:border-white/40 group overflow-hidden z-10 select-none"
                     style={{
                       transform: 'scale(0.96)',
                       opacity: 0.55,
@@ -135,13 +168,13 @@ export default function PortfolioLookbook({ onOpenCustom }) {
 
                 {/* ACTIVE FOREGROUND CARD (Emerges cleanly on scroll) */}
                 <div className="relative z-20">
-                  <AnimatePresence mode="wait">
+                  <AnimatePresence mode="popLayout">
                     <motion.div
                       key={activeService.id}
                       initial={{
                         opacity: 0,
-                        y: 90, // slides in from bottom when scrolling to next
-                        scale: 0.97,
+                        y: 35,
+                        scale: 0.98,
                       }}
                       animate={{
                         opacity: 1,
@@ -150,13 +183,13 @@ export default function PortfolioLookbook({ onOpenCustom }) {
                       }}
                       exit={{
                         opacity: 0,
-                        y: -40,
-                        scale: 0.95,
-                        transition: { duration: 0.3, ease: 'easeIn' },
+                        y: -25,
+                        scale: 0.98,
+                        transition: { duration: 0.2, ease: 'easeIn' },
                       }}
                       transition={{
-                        duration: 0.45,
-                        ease: [0.16, 1, 0.3, 1],
+                        duration: 0.32,
+                        ease: [0.22, 1, 0.36, 1],
                       }}
                       className="w-full rounded-2xl sm:rounded-3xl bg-neutral-950 border border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95)] p-4 sm:p-7 lg:p-10 relative overflow-hidden"
                     >
@@ -333,19 +366,47 @@ export default function PortfolioLookbook({ onOpenCustom }) {
 
             </div>
 
-            {/* ================= STICKY FOOTER: SCROLL STATUS / SCROLL HINT ================= */}
-            <div className="w-full flex-shrink-0 pt-2 flex items-center justify-between text-[11px] sm:text-xs font-mono text-neutral-400 border-t border-white/10">
+            {/* ================= STICKY FOOTER: SCROLL STATUS / SERVICE STEP INDICATOR ================= */}
+            <div className="w-full flex-shrink-0 pt-2.5 flex items-center justify-between text-[11px] sm:text-xs font-mono text-neutral-400 border-t border-white/10">
+              
+              {/* Left: Scroll guidance */}
               <div className="flex items-center gap-2">
-                <MousePointer className="w-3.5 h-3.5 text-[#ff3b19]" />
-                <span className="truncate max-w-[240px] sm:max-w-none">
+                <MousePointer className="w-3.5 h-3.5 text-[#ff3b19] shrink-0" />
+                <span className="hidden sm:inline truncate max-w-[240px] sm:max-w-none">
                   {currentIndex < 5
-                    ? `SCROLL DOWN TO REVEAL SERVICE 0${currentIndex + 2}`
+                    ? `SCROLL TO REVEAL SERVICE 0${currentIndex + 2}`
                     : 'SERVICE 06 REACHED — CONTINUE SCROLLING'}
+                </span>
+                <span className="sm:hidden font-bold text-white">
+                  SERVICE <span className="text-[#ff3b19]">{activeService.num}</span> / 06
                 </span>
               </div>
 
+              {/* Center/Right: Interactive Service Step Dots (01 through 06) */}
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                {PENTA_SERVICES.map((s, idx) => {
+                  const isCurrent = idx === currentIndex;
+                  return (
+                    <button
+                      key={s.id}
+                      onClick={() => scrollToService(idx)}
+                      id={`service-step-dot-${s.num}`}
+                      aria-label={`Jump to service ${s.num}: ${s.title}`}
+                      className={`transition-all duration-300 rounded-full flex items-center justify-center cursor-pointer ${
+                        isCurrent
+                          ? 'w-6 sm:w-7 h-5 sm:h-5.5 bg-[#ff3b19] text-white font-bold text-[9px] sm:text-[10px] shadow-md shadow-[#ff3b19]/40'
+                          : 'w-2 sm:w-2.5 h-2 sm:h-2.5 bg-white/20 hover:bg-white/50 text-transparent'
+                      }`}
+                    >
+                      {isCurrent ? s.num : ''}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Right: Scroll direction indicator */}
               <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <span className="text-neutral-500">SCROLL</span>
+                <span className="text-neutral-500 hidden sm:inline">SCROLL</span>
                 <ArrowDown className={`w-3.5 h-3.5 text-[#ff3b19] ${currentIndex === 5 ? 'animate-bounce' : ''}`} />
               </div>
             </div>
