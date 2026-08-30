@@ -24,7 +24,7 @@ export default function Header({ onOpenContact }) {
             : 'bg-transparent py-3 sm:py-4 md:py-6'
         }`}
       >
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="w-full px-4 sm:px-8 lg:px-12 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#"

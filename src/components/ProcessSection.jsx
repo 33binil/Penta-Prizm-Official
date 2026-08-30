@@ -12,7 +12,7 @@ export default function ProcessSection({ onStartCustom }) {
       {/* Background ambient lighting */}
       <div className="absolute top-1/3 left-10 w-80 h-80 bg-[#ff3b19]/10 rounded-full blur-[130px] pointer-events-none" />
 
-      <div className="w-full px-4 sm:px-6 relative z-20">
+      <div className="w-full px-4 sm:px-8 lg:px-12 relative z-20">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">

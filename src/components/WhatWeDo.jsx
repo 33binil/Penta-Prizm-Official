@@ -13,7 +13,7 @@ export default function WhatWeDo({ onSelectService }) {
       {/* Ambient background glow */}
       <div className="absolute top-1/3 left-1/4 w-80 sm:w-96 h-80 sm:h-96 bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 pt-6">
+      <div className="w-full px-4 sm:px-8 lg:px-12 relative z-20 pt-6">
         
         {/* Section Header */}
         <div className="mb-8 sm:mb-12 lg:mb-14">

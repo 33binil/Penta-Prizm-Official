@@ -38,7 +38,7 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted }) 
       {/* Background neon flares */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[700px] h-[350px] sm:h-[700px] bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none" />
 
-      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+      <div className="w-full px-4 sm:px-8 lg:px-12 relative z-20">
 
         {/* Header */}
         <div className="text-center mb-10 sm:mb-14">

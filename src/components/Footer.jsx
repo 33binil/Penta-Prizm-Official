@@ -9,7 +9,7 @@ export default function Footer({ onOpenContact }) {
 
   return (
     <footer id="contacts" className="relative w-full bg-[#070707] text-white pt-16 sm:pt-20 pb-12 overflow-hidden border-t border-white/10">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+      <div className="w-full px-4 sm:px-8 lg:px-12 relative z-20">
         
         {/* Main Footer Row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 pb-12 sm:pb-14 border-b border-white/10">

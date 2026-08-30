@@ -60,17 +60,23 @@ export default function PortfolioLookbook({ onOpenCustom }) {
         className="relative w-full h-[600vh] bg-[#080808]"
       >
         {/* Sticky 100vh Viewport */}
-        <div className="sticky top-0 min-h-screen sm:h-screen w-full flex flex-col justify-between py-4 sm:py-6 lg:py-8 px-3 sm:px-6 lg:px-8 text-white overflow-hidden z-20">
+        <div className="sticky top-0 min-h-screen sm:h-screen w-full flex flex-col justify-between py-4 sm:py-6 lg:py-8 px-4 sm:px-8 lg:px-12 text-white overflow-hidden z-20">
           
           {/* Ambient background glows */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[350px] sm:w-[800px] h-[300px] sm:h-[500px] bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[170px] pointer-events-none" />
           <div className="absolute -bottom-20 right-10 w-60 sm:w-96 h-60 sm:h-96 bg-orange-600/10 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
 
-          {/* Global Max-Width Wrapper */}
-          <div className="max-w-7xl mx-auto w-full flex flex-col justify-between h-full relative z-20">
+          {/* Full-Width Wrapper */}
+          <div className="w-full flex flex-col justify-between h-full relative z-20">
             
             {/* ================= COMPACT SECTION HEADER & NAVIGATION ================= */}
-            <div className="w-full flex-shrink-0">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.1 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full flex-shrink-0"
+            >
               
               <div className="flex items-center justify-between flex-wrap gap-2 sm:gap-3 pb-2.5 sm:pb-3 border-b border-white/10">
                 
@@ -81,51 +87,14 @@ export default function PortfolioLookbook({ onOpenCustom }) {
                     OUR SERVICES
                   </div>
                   <span className="hidden sm:inline text-white/30">|</span>
-                  <span className="hidden md:inline font-bebas text-base lg:text-lg tracking-wider text-neutral-300">
+                  <span className="font-bebas text-base lg:text-lg tracking-wider text-neutral-300">
                     WE BUILD. WE CREATE. <span className="text-[#ff3b19]">WE GROW.</span>
-                  </span>
-                </div>
-
-                {/* Service Tabs (01 to 06) */}
-                <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 no-scrollbar max-w-[60vw] sm:max-w-none">
-                  {PENTA_SERVICES.map((serv, idx) => {
-                    const isActive = idx === currentIndex;
-                    return (
-                      <button
-                        key={serv.id}
-                        id={`service-nav-tab-${serv.num}`}
-                        onClick={() => scrollToService(idx)}
-                        className={`relative px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg font-montserrat text-[11px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap cursor-pointer min-h-[32px] sm:min-h-[36px] ${
-                          isActive
-                            ? 'bg-white text-black shadow-lg shadow-white/10 scale-105'
-                            : 'bg-neutral-900/80 text-neutral-400 hover:text-white hover:bg-neutral-800 border border-white/10'
-                        }`}
-                      >
-                        <span className={`font-mono text-[10px] ${isActive ? 'text-[#ff3b19] font-black' : 'text-neutral-500'}`}>
-                          {serv.num}
-                        </span>
-                        <span className="hidden lg:inline">{serv.title}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Scroll progress meter */}
-                <div className="flex items-center gap-2">
-                  <div className="w-16 sm:w-24 lg:w-28 h-1.5 bg-white/10 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-[#ff3b19] transition-all duration-150"
-                      style={{ width: `${Math.min(100, Math.max(0, scrollPct * 100))}%` }}
-                    />
-                  </div>
-                  <span className="text-[11px] sm:text-xs font-mono text-neutral-300">
-                    <strong className="text-[#ff3b19]">{activeService.num}</strong>/06
                   </span>
                 </div>
 
               </div>
 
-            </div>
+            </motion.div>
 
             {/* ================= LAYERED STACKED DECK CONTAINER ================= */}
             <div className="relative w-full my-auto py-2 flex-grow flex items-center justify-center">
@@ -218,28 +187,36 @@ export default function PortfolioLookbook({ onOpenCustom }) {
                       {/* Editorial Layout: Dual Number Stack on Left + Detailed Scope on Right */}
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 items-start">
                         
-                        {/* LEFT COLUMN: SERVICE NUMERAL & METADATA */}
+                        {/* LEFT COLUMN: SERVICE NUMERAL & TITLE METADATA & APPROACH SUMMARY (LAPTOP/DESKTOP) */}
                         <div className="lg:col-span-4 flex flex-col justify-between self-stretch pr-0 lg:pr-6 border-b lg:border-b-0 lg:border-r border-white/10 pb-4 lg:pb-0">
                           
-                          <div className="relative select-none flex sm:block items-center justify-between">
-                            {/* MAIN SERVICE NUMBER: Bold Brand Orange (#ff3b19) */}
-                            <div className="font-bebas text-6xl sm:text-8xl lg:text-[110px] text-[#ff3b19] leading-none tracking-tighter font-extrabold filter drop-shadow-[0_10px_20px_rgba(255,59,25,0.3)]">
-                              {activeService.num}
+                          <div>
+                            <div className="relative select-none flex items-center gap-3 sm:gap-4">
+                              {/* MAIN SERVICE NUMBER: Bold Brand Orange (#ff3b19) */}
+                              <div className="font-bebas text-6xl sm:text-7xl lg:text-8xl text-[#ff3b19] leading-none tracking-tighter font-extrabold filter drop-shadow-[0_10px_20px_rgba(255,59,25,0.3)] shrink-0">
+                                {activeService.num}
+                              </div>
+                              
+                              {/* Service Title positioned to the right of the colored number */}
+                              <div className="flex flex-col justify-center">
+                                <h3 className="font-bebas text-2xl sm:text-3xl lg:text-4xl text-white uppercase tracking-wide leading-tight">
+                                  {activeService.title}
+                                </h3>
+                              </div>
                             </div>
 
-                            <div className="mt-1 sm:mt-2 text-[10px] sm:text-xs font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-2">
-                              <span>SERVICE {activeService.num} / 06</span>
+                            {/* Left Box Approach Summary: ONLY FOR LAPTOP / DESKTOP (lg+) */}
+                            <div className="hidden lg:block mt-6 p-4 rounded-xl bg-neutral-900/80 border border-white/10">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff3b19]" />
+                                <span className="text-[10px] font-mono text-[#ff3b19] uppercase tracking-widest font-bold">
+                                  APPROACH SUMMARY
+                                </span>
+                              </div>
+                              <p className="font-montserrat text-xs text-neutral-200 leading-relaxed pl-2.5 border-l-2 border-[#ff3b19]/40">
+                                {activeService.approachDesc}
+                              </p>
                             </div>
-                          </div>
-
-                          {/* Left Side Quick Note */}
-                          <div className="mt-3 sm:mt-6 p-3 sm:p-3.5 rounded-xl bg-neutral-900/80 border border-white/10">
-                            <span className="text-[9px] sm:text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-1">
-                              APPROACH SUMMARY
-                            </span>
-                            <p className="font-montserrat text-xs text-neutral-200 leading-relaxed">
-                              {activeService.approachDesc}
-                            </p>
                           </div>
 
                         </div>
@@ -247,17 +224,27 @@ export default function PortfolioLookbook({ onOpenCustom }) {
                         {/* RIGHT COLUMN: Full Service Content */}
                         <div className="lg:col-span-8 flex flex-col justify-between space-y-4 sm:space-y-5">
                           
-                          {/* Title & Tagline */}
+                          {/* Tagline & Description */}
                           <div>
-                            <span className="font-mono text-[11px] sm:text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-1">
-                              // {activeService.num}. {activeService.title} //
-                            </span>
                             <h3 className="font-bebas text-2xl sm:text-4xl lg:text-5xl text-white tracking-wide uppercase leading-tight">
                               {activeService.tagline}
                             </h3>
                             <p className="font-montserrat text-xs sm:text-sm text-neutral-300 mt-2 sm:mt-2.5 leading-relaxed">
                               {activeService.description}
                             </p>
+
+                            {/* Approach Summary placed below tagline & description: ONLY ON MOBILE / TABLET (< lg) */}
+                            <div className="block lg:hidden mt-4 pt-3.5 border-t border-white/10">
+                              <div className="flex items-center gap-2 mb-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#ff3b19]" />
+                                <span className="text-[10px] sm:text-[11px] font-mono text-[#ff3b19] uppercase tracking-widest font-bold">
+                                  APPROACH SUMMARY
+                                </span>
+                              </div>
+                              <p className="font-montserrat text-xs sm:text-sm text-neutral-300 leading-relaxed pl-3.5 border-l-2 border-[#ff3b19]/40">
+                                {activeService.approachDesc}
+                              </p>
+                            </div>
                           </div>
 
                           {/* Deliverables / Scope Grid (Hidden on mobile) */}
@@ -370,12 +357,12 @@ export default function PortfolioLookbook({ onOpenCustom }) {
       {/* ================= MANIFESTO & SOLUTION BANNER (Renders cleanly AFTER the 600vh services track) ================= */}
       <section
         id="manifesto-complete-solutions"
-        className="relative z-30 bg-[#0c0c0c] border-t border-white/15 py-16 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden"
+        className="relative z-30 bg-[#0c0c0c] border-t border-white/15 py-16 sm:py-24 px-4 sm:px-8 lg:px-12 overflow-hidden"
       >
         {/* Ambient glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[700px] h-[250px] sm:h-[400px] bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none" />
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="w-full text-center relative z-10">
           
           <span className="font-mono text-xs uppercase tracking-widest text-[#ff3b19] font-bold block mb-3">
             // ONE STUDIO. COMPLETE SOLUTIONS. //

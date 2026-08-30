@@ -30,7 +30,7 @@ export default function AboutSection() {
         </svg>
       </div>
 
-      <div className="w-full px-4 sm:px-6 relative z-20">
+      <div className="w-full px-4 sm:px-8 lg:px-12 relative z-20">
         
         {/* Section Heading */}
         <div className="mb-8 sm:mb-12">

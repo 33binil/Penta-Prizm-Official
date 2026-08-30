@@ -9,7 +9,7 @@ export default function Hero({ onOpenContact }) {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
 
       {/* Main hero card container */}
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-between">
+      <div className="relative w-full px-4 sm:px-8 lg:px-12 flex-1 flex flex-col justify-between">
         
         {/* Top bar inside hero image / canvas */}
         <div className="flex items-start justify-between z-20 pt-2 sm:pt-4 gap-4">
@@ -49,7 +49,7 @@ export default function Hero({ onOpenContact }) {
 
         {/* Center Hero Visual (Model with futuristic silver glasses looking up) */}
         <div className="relative my-auto py-4 sm:py-8 lg:py-10 flex items-center justify-center">
-          <div className="relative w-full max-w-lg sm:max-w-xl md:max-w-2xl mx-auto aspect-[16/11] sm:aspect-[16/10] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+          <div className="relative w-full max-w-lg sm:max-w-2xl lg:max-w-3xl mx-auto aspect-[16/10] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
             {/* Streetwear Model Photo */}
             <img
               src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1400&q=85"
