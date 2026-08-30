@@ -7,32 +7,33 @@ import PortfolioLookbook from './components/PortfolioLookbook.jsx';
 import ProcessSection from './components/ProcessSection.jsx';
 import InteractiveCustomForm from './components/InteractiveCustomForm.jsx';
 import ApplicationFormModal from './components/ApplicationFormModal.jsx';
-import ContactModal from './components/ContactModal.jsx';
 import Footer from './components/Footer.jsx';
 
 export default function App() {
-  const [contactModalOpen, setContactModalOpen] = useState(false);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
-  const [selectedServiceForModal, setSelectedServiceForModal] = useState('');
+  const [preselectedApplication, setPreselectedApplication] = useState(null);
   const [preselectedCustomItem, setPreselectedCustomItem] = useState(null);
 
   const handleOpenContact = (serviceName = '') => {
-    setSelectedServiceForModal(typeof serviceName === 'string' ? serviceName : '');
-    setContactModalOpen(true);
-  };
-
-  const handleOpenApplicationForm = () => {
+    const item =
+      typeof serviceName === 'string' && serviceName
+        ? { title: serviceName }
+        : null;
+    setPreselectedApplication(item);
     setApplicationFormOpen(true);
   };
 
   const handleSelectServiceFromGrid = (serviceId) => {
     const serviceNames = {
-      projects: 'Brand Strategy & Identity',
-      design: 'Digital Experiences & Web',
-      custom: 'Creative Content & Media',
-      upcycling: 'Digital Marketing & Growth',
+      projects: { title: 'Brand Strategy & Identity', services: ['BRANDING'] },
+      design: { title: 'Digital Experiences & Web', services: ['WEBSITE DEVELOPMENT', 'APP DEVELOPMENT'] },
+      custom: { title: 'Creative Content & Media', services: ['CREATIVE CONTENT'] },
+      upcycling: { title: 'Digital Marketing & Growth', services: ['MARKETING', 'DIGITAL MARKETING'] },
     };
-    handleOpenContact(serviceNames[serviceId] || 'Custom Project Inquiry');
+    setPreselectedApplication(
+      serviceNames[serviceId] || { title: 'Custom Project Inquiry', services: ['BRANDING'] }
+    );
+    setApplicationFormOpen(true);
   };
 
   const handleOpenCustomWithItem = (item) => {
@@ -40,19 +41,14 @@ export default function App() {
       handleOpenContact(item);
       return;
     }
-    setPreselectedCustomItem(item);
-    const customSection = document.getElementById('custom-builder');
-    if (customSection) {
-      customSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      handleOpenContact('Custom Project Inquiry');
-    }
+    setPreselectedApplication(item);
+    setApplicationFormOpen(true);
   };
 
   return (
     <div className="min-h-screen bg-[#0c0c0c] text-white flex flex-col selection:bg-[#ff3b19] selection:text-white">
       {/* Top Fixed Header */}
-      <Header onOpenContact={() => handleOpenContact()} onOpenApplicationForm={handleOpenApplicationForm} />
+      <Header onOpenContact={() => handleOpenContact()} />
 
       {/* Main Content Sections */}
       <main className="flex-1 flex flex-col w-full">
@@ -85,14 +81,7 @@ export default function App() {
       <ApplicationFormModal
         isOpen={applicationFormOpen}
         onClose={() => setApplicationFormOpen(false)}
-        preselectedItem={null}
-      />
-
-      {/* Contact & Inquiry Modal */}
-      <ContactModal
-        isOpen={contactModalOpen}
-        onClose={() => setContactModalOpen(false)}
-        defaultService={selectedServiceForModal}
+        preselectedItem={preselectedApplication}
       />
     </div>
   );

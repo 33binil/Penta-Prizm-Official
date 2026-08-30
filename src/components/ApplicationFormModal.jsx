@@ -32,7 +32,7 @@ export default function ApplicationFormModal({ isOpen, onClose, preselectedItem 
         <X className="w-5 h-5" />
       </button>
 
-      <div className="w-full max-w-5xl mx-auto px-0 sm:px-6">
+      <div className="w-full">
         <InteractiveCustomForm preselectedItem={preselectedItem} onCompleted={onClose} />
       </div>
     </div>

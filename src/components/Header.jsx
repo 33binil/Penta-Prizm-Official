@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight, MessageSquare, Flame } from 'lucide-react';
 import { NAV_LINKS } from '../data/studioData.js';
 
-export default function Header({ onOpenContact, onOpenApplicationForm }) {
+export default function Header({ onOpenContact }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -58,7 +58,7 @@ export default function Header({ onOpenContact, onOpenApplicationForm }) {
             </span>
             <button
               id="header-contact-btn"
-              onClick={onOpenApplicationForm}
+              onClick={onOpenContact}
               className="bg-[#ff3b19] hover:bg-[#e02f0e] text-white font-montserrat font-bold text-xs uppercase tracking-wider px-4 sm:px-5 py-2.5 rounded-full transition-all duration-200 shadow-lg shadow-[#ff3b19]/30 hover:scale-105 active:scale-95 flex items-center gap-1.5 cursor-pointer min-h-[40px]"
             >
               <span>APPLICATION FORM</span>

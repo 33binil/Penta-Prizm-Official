@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 
 export default function InteractiveCustomForm({ preselectedItem, onCompleted }) {
-  const [selectedServices, setSelectedServices] = useState(['BRANDING']);
+  const [selectedServices, setSelectedServices] = useState(
+    preselectedItem?.services?.length ? preselectedItem.services : ['BRANDING']
+  );
   const [name, setName] = useState('');
   const [orgName, setOrgName] = useState('');
   const [contact, setContact] = useState('');
