@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LoadingScreen from './components/LoadingScreen.jsx';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import AboutSection from './components/AboutSection.jsx';
@@ -10,6 +11,7 @@ import ApplicationFormModal from './components/ApplicationFormModal.jsx';
 import Footer from './components/Footer.jsx';
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
   const [preselectedApplication, setPreselectedApplication] = useState(null);
   const [preselectedCustomItem, setPreselectedCustomItem] = useState(null);
@@ -47,6 +49,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0c0c0c] text-white flex flex-col selection:bg-[#ff3b19] selection:text-white">
+      {/* Dynamic Intro Loading Screen */}
+      {isLoading && (
+        <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+      )}
+
       {/* Top Fixed Header */}
       <Header onOpenContact={() => handleOpenContact()} />
 
