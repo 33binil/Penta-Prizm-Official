@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Send, MessageCircle } from 'lucide-react';
+import { Instagram, Send, MessageCircle, Mail } from 'lucide-react';
 import { MARQUEE_ITEMS } from '../data/studioData.js';
 
 export default function Hero({ onOpenContact }) {
@@ -48,6 +48,9 @@ export default function Hero({ onOpenContact }) {
                 — PENTA PRIZM
               </span>
             </div>
+
+            {/* Gmail contact */}
+            
           </div>
         </div>
 

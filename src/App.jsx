@@ -6,17 +6,23 @@ import WhatWeDo from './components/WhatWeDo.jsx';
 import PortfolioLookbook from './components/PortfolioLookbook.jsx';
 import ProcessSection from './components/ProcessSection.jsx';
 import InteractiveCustomForm from './components/InteractiveCustomForm.jsx';
+import ApplicationFormModal from './components/ApplicationFormModal.jsx';
 import ContactModal from './components/ContactModal.jsx';
 import Footer from './components/Footer.jsx';
 
 export default function App() {
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [applicationFormOpen, setApplicationFormOpen] = useState(false);
   const [selectedServiceForModal, setSelectedServiceForModal] = useState('');
   const [preselectedCustomItem, setPreselectedCustomItem] = useState(null);
 
   const handleOpenContact = (serviceName = '') => {
     setSelectedServiceForModal(typeof serviceName === 'string' ? serviceName : '');
     setContactModalOpen(true);
+  };
+
+  const handleOpenApplicationForm = () => {
+    setApplicationFormOpen(true);
   };
 
   const handleSelectServiceFromGrid = (serviceId) => {
@@ -46,7 +52,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#0c0c0c] text-white flex flex-col selection:bg-[#ff3b19] selection:text-white">
       {/* Top Fixed Header */}
-      <Header onOpenContact={() => handleOpenContact()} />
+      <Header onOpenContact={() => handleOpenContact()} onOpenApplicationForm={handleOpenApplicationForm} />
 
       {/* Main Content Sections */}
       <main className="flex-1 flex flex-col w-full">
@@ -74,6 +80,13 @@ export default function App() {
 
       {/* Footer */}
       <Footer onOpenContact={() => handleOpenContact()} />
+
+      {/* Application Form Overlay */}
+      <ApplicationFormModal
+        isOpen={applicationFormOpen}
+        onClose={() => setApplicationFormOpen(false)}
+        preselectedItem={null}
+      />
 
       {/* Contact & Inquiry Modal */}
       <ContactModal
