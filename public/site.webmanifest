@@ -1,0 +1,17 @@
+{
+  "name": "PENTA PRIZM",
+  "short_name": "PENTA PRIZM",
+  "description": "PENTA PRIZM is a creative and technology-driven company specializing in branding, creative content, video production, web development, app development, marketing, and digital growth.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0c",
+  "theme_color": "#0c0c0c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64 128x128 256x256 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
