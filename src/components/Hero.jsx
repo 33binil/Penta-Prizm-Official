@@ -52,7 +52,7 @@ export default function Hero({ onOpenContact }) {
           <div className="relative w-full max-w-lg sm:max-w-2xl lg:max-w-3xl mx-auto aspect-[16/10] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
             {/* Streetwear Model Photo */}
             <img
-              src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1400&q=85"
+              src="/web1.png"
               alt="Penta Prizm Creative Visual"
               className="w-full h-full object-cover object-center brightness-95 contrast-110 group-hover:scale-105 transition-transform duration-700"
               referrerPolicy="no-referrer"

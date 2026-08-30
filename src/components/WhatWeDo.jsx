@@ -91,7 +91,7 @@ export default function WhatWeDo({ onSelectService }) {
             {/* Photo Card with Neon Red Spray Loop Overlay */}
             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 min-h-[200px] sm:min-h-[220px] bg-neutral-900 group">
               <img
-                src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=600&q=80"
+                src="/web4.png"
                 alt="Digital Design Presentation"
                 className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500"
                 referrerPolicy="no-referrer"
@@ -125,7 +125,7 @@ export default function WhatWeDo({ onSelectService }) {
             {/* Photo Card with 'PP' Spray Tag */}
             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 min-h-[200px] sm:min-h-[220px] bg-neutral-900 group">
               <img
-                src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80"
+                src="/web4.png"
                 alt="Creative Media Visual"
                 className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500"
                 referrerPolicy="no-referrer"
@@ -189,7 +189,7 @@ export default function WhatWeDo({ onSelectService }) {
             {/* Photo Card */}
             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 min-h-[200px] sm:min-h-[220px] bg-neutral-900 group">
               <img
-                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80"
+                src="/web5.png"
                 alt="Brand Growth Campaign"
                 className="w-full h-full object-cover contrast-110 group-hover:scale-105 transition-transform duration-500"
                 referrerPolicy="no-referrer"

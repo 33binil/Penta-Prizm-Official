@@ -49,7 +49,7 @@ export default function AboutSection() {
               {/* Group photo (3 alternative girls in black streetwear) */}
               <div className="relative rounded-lg overflow-hidden border-2 border-black shadow-xl bg-neutral-900 group">
                 <img
-                  src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80"
+                  src="/web2.png"
                   alt="Street ID Studio Creators and Models"
                   className="w-full h-[320px] sm:h-[400px] object-cover object-center grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
@@ -88,7 +88,7 @@ export default function AboutSection() {
 
                 <div className="relative aspect-square overflow-hidden bg-neutral-800 rounded">
                   <img
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+                    src="/web3.png"
                     alt="Street ID Camera Shot"
                     className="w-full h-full object-cover grayscale contrast-125"
                     referrerPolicy="no-referrer"
