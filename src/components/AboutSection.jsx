@@ -73,12 +73,15 @@ export default function AboutSection() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative rounded-lg overflow-hidden border-2 border-black shadow-xl bg-neutral-900 group"
               >
-                <img
-                  src="/web2.png"
-                  alt="Street ID Studio Creators and Models"
-                  className="w-full h-[320px] sm:h-[400px] object-cover object-center grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                />
+                <picture className="block w-full">
+                  <source media="(min-width: 640px)" srcSet="/web2.png" />
+                  <img
+                    src="/web2-m.png"
+                    alt="Street ID Studio Creators and Models"
+                    className="w-full h-[320px] sm:h-[400px] object-cover object-center grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                </picture>
                 <div className="absolute inset-0 halftone opacity-30 pointer-events-none" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
                 
