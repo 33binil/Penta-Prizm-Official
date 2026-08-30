@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowDown, Flame, Sparkles } from 'lucide-react';
+import { Instagram, Send, MessageCircle } from 'lucide-react';
 import { MARQUEE_ITEMS } from '../data/studioData.js';
 
 export default function Hero({ onOpenContact }) {
@@ -36,14 +36,18 @@ export default function Hero({ onOpenContact }) {
             </div>
           </div>
 
-          {/* Right hero CTA button */}
-          <div>
-            <button
-              onClick={onOpenContact}
-              className="bg-[#ff3b19] hover:bg-[#e02f0e] text-white font-montserrat font-extrabold text-[10px] sm:text-xs tracking-wider px-4 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-200 shadow-xl shadow-[#ff3b19]/40 hover:scale-105 active:scale-95 cursor-pointer uppercase min-h-[38px] flex items-center justify-center whitespace-nowrap"
-            >
-              WRITE TO THE STUDIO
-            </button>
+          {/* Right hero CTA + socials */}
+          <div className="flex items-center gap-2 sm:gap-3">
+
+            <div className="hidden lg:flex flex-col items-end gap-1 max-w-[300px]">
+              <span className="font-bebas text-lg sm:text-xl text-[#ff3b19] tracking-wider leading-none">“</span>
+              <p className="font-montserrat font-semibold text-[10px] sm:text-[11px] tracking-wide text-white/80 text-right leading-relaxed italic">
+                We don’t just make things look good — we make them mean something.
+              </p>
+              <span className="mt-1 font-mono text-[9px] tracking-widest text-white/40 uppercase">
+                — PENTA PRIZM
+              </span>
+            </div>
           </div>
         </div>
 

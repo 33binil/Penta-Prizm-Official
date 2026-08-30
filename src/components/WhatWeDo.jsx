@@ -98,20 +98,6 @@ export default function WhatWeDo({ onSelectService }) {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
 
-              {/* Bold Red Spray Loop Graphic */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <svg viewBox="0 0 100 100" className="w-24 sm:w-28 h-24 sm:h-28 text-[#ff3b19] spray-text">
-                  <path
-                    d="M30,80 C15,60 10,30 35,20 C60,10 90,30 80,60 C70,90 40,85 30,55 C20,25 65,15 85,45"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="8"
-                    strokeLinecap="round"
-                    className="opacity-90 drop-shadow-[0_0_12px_rgba(255,59,25,0.8)]"
-                  />
-                </svg>
-              </div>
-
               <div className="absolute bottom-2 right-2 font-mono text-[9px] text-white/60 uppercase">
                 DROP // 01
               </div>
