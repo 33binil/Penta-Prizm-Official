@@ -33,8 +33,10 @@ export default function LoadingScreen({ onLoadingComplete, minDuration = 2200 })
       if (calculated >= 100) {
         clearInterval(interval);
         setTimeout(() => {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
           setIsFinished(true);
           setTimeout(() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
             if (onLoadingComplete) onLoadingComplete();
           }, 600);
         }, 300);
@@ -54,7 +56,7 @@ export default function LoadingScreen({ onLoadingComplete, minDuration = 2200 })
             y: '-100%', 
             transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] } 
           }}
-          className="fixed inset-0 z-[99999] bg-[#080808] text-white flex flex-col justify-between p-6 sm:p-12 overflow-hidden select-none"
+          className="fixed inset-0 z-[99999] bg-[#080808] text-white flex flex-col justify-between p-6 sm:p-12 overflow-hidden select-none touch-none overscroll-none"
         >
           {/* Background Ambient Grid & Glows */}
           <div className="absolute inset-0 pointer-events-none opacity-20">
@@ -155,6 +157,7 @@ export default function LoadingScreen({ onLoadingComplete, minDuration = 2200 })
               <button
                 type="button"
                 onClick={() => {
+                  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
                   setProgress(100);
                   setIsFinished(true);
                   if (onLoadingComplete) onLoadingComplete();

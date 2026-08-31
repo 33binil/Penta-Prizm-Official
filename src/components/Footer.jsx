@@ -48,7 +48,7 @@ export default function Footer({ onOpenContact }) {
                 <Instagram className="w-4 h-4" />
               </a>
               <a
-                href="https://facebook.com/"
+                href="https://www.facebook.com/profile.php?id=61594139094021&mibextid=LQQzGN"
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors min-w-[40px] min-h-[40px]"
@@ -68,7 +68,7 @@ export default function Footer({ onOpenContact }) {
                 </svg>
               </a>
               <a
-                href="https://linkedin.com/"
+                href="https://www.linkedin.com/company/penta-prizm/"
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-full bg-white/5 border border-white/15 hover:bg-[#ff3b19] hover:border-[#ff3b19] flex items-center justify-center transition-colors min-w-[40px] min-h-[40px]"

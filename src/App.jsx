@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoadingScreen from './components/LoadingScreen.jsx';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
@@ -15,6 +15,50 @@ export default function App() {
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
   const [preselectedApplication, setPreselectedApplication] = useState(null);
   const [preselectedCustomItem, setPreselectedCustomItem] = useState(null);
+
+  useEffect(() => {
+    // Disable browser default scroll restoration on refresh so it always starts at top
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      // Lock scroll while loading screen is active
+      const prevBodyOverflow = document.body.style.overflow;
+      const prevHtmlOverflow = document.documentElement.style.overflow;
+
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+      const preventScroll = (e) => {
+        e.preventDefault();
+      };
+
+      window.addEventListener('wheel', preventScroll, { passive: false });
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+      window.addEventListener('keydown', (e) => {
+        if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Space', ' '].includes(e.key)) {
+          e.preventDefault();
+        }
+      });
+
+      return () => {
+        document.body.style.overflow = prevBodyOverflow;
+        document.documentElement.style.overflow = prevHtmlOverflow;
+        window.removeEventListener('wheel', preventScroll);
+        window.removeEventListener('touchmove', preventScroll);
+      };
+    }
+  }, [isLoading]);
+
+  const handleLoadingComplete = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    setIsLoading(false);
+  };
 
   const handleOpenContact = (serviceName = '') => {
     const item =
@@ -51,7 +95,7 @@ export default function App() {
     <div className="min-h-screen bg-[#0c0c0c] text-white flex flex-col selection:bg-[#ff3b19] selection:text-white">
       {/* Dynamic Intro Loading Screen */}
       {isLoading && (
-        <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+        <LoadingScreen onLoadingComplete={handleLoadingComplete} />
       )}
 
       {/* Top Fixed Header */}
