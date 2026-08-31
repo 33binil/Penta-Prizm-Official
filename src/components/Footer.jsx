@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowUp, Heart, Instagram, Facebook, Linkedin, Send, MessageCircle, MapPin, Mail, Phone } from 'lucide-react';
-import { NAV_LINKS } from '../data/studioData.js';
+import { ArrowUp, Instagram, Facebook, Linkedin, MapPin, Mail, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer({ onOpenContact }) {
   const scrollToTop = () => {
@@ -91,19 +91,27 @@ export default function Footer({ onOpenContact }) {
           {/* Nav Links */}
           <div className="md:col-span-3">
             <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-4">
-              // NAVIGATION
+              // SERVICES
             </span>
-            <div className="flex flex-col gap-2.5">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.id}
-                  href={link.href}
+            <nav className="flex flex-col gap-2.5" aria-label="Footer services navigation">
+              {[
+                { label: 'Branding', to: '/branding' },
+                { label: 'Content Creation', to: '/content-creation' },
+                { label: 'Video Production', to: '/video-production' },
+                { label: 'Web Development', to: '/web-development' },
+                { label: 'App Development', to: '/app-development' },
+                { label: 'Marketing', to: '/marketing' },
+                { label: 'Digital Marketing', to: '/digital-marketing' },
+              ].map(({ label, to }) => (
+                <Link
+                  key={to}
+                  to={to}
                   className="font-montserrat text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white hover:translate-x-1 transition-all py-1"
                 >
-                  {link.label}
-                </a>
+                  {label}
+                </Link>
               ))}
-            </div>
+            </nav>
           </div>
 
           {/* Contact Details */}

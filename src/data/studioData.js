@@ -161,6 +161,7 @@ export const PROCESS_STEPS = [
 export const PENTA_SERVICES = [
   {
     id: 'branding',
+    route: '/branding',
     num: '01',
     code: '01',
     prevNum: '00',
@@ -191,6 +192,7 @@ export const PENTA_SERVICES = [
   },
   {
     id: 'creative-content',
+    route: '/content-creation',
     num: '02',
     code: '02',
     prevNum: '01',
@@ -222,6 +224,7 @@ export const PENTA_SERVICES = [
   },
   {
     id: 'website-development',
+    route: '/web-development',
     num: '03',
     code: '03',
     prevNum: '02',
@@ -265,6 +268,7 @@ export const PENTA_SERVICES = [
   },
   {
     id: 'app-development',
+    route: '/app-development',
     num: '04',
     code: '04',
     prevNum: '03',
@@ -305,6 +309,7 @@ export const PENTA_SERVICES = [
   },
   {
     id: 'marketing',
+    route: '/marketing',
     num: '05',
     code: '05',
     prevNum: '04',
@@ -336,6 +341,7 @@ export const PENTA_SERVICES = [
   },
   {
     id: 'digital-marketing',
+    route: '/digital-marketing',
     num: '06',
     code: '06',
     prevNum: '05',
