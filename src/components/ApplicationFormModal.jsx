@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
 import InteractiveCustomForm from './InteractiveCustomForm.jsx';
 
-export default function ApplicationFormModal({ isOpen, onClose, preselectedItem }) {
+export default function ApplicationFormModal({ isOpen, onClose, preselectedItem, onSuccess }) {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -48,7 +48,7 @@ export default function ApplicationFormModal({ isOpen, onClose, preselectedItem 
             transition={{ duration: 0.4, delay: 0.1 }}
             className="w-full"
           >
-            <InteractiveCustomForm preselectedItem={preselectedItem} onCompleted={onClose} />
+            <InteractiveCustomForm preselectedItem={preselectedItem} onCompleted={onClose} onSuccess={onSuccess} />
           </motion.div>
         </motion.div>
       )}

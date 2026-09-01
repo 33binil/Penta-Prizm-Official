@@ -1,39 +1,52 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Send, CheckCircle2 } from 'lucide-react';
+import { Send, CheckCircle2, Loader2 } from 'lucide-react';
 
-export default function InteractiveCustomForm({ preselectedItem, onCompleted }) {
-  const [selectedServices, setSelectedServices] = useState(
-    preselectedItem?.services?.length ? preselectedItem.services : ['BRANDING']
-  );
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+export default function InteractiveCustomForm({ preselectedItem, onCompleted, onSuccess }) {
   const [name, setName] = useState('');
-  const [orgName, setOrgName] = useState('');
   const [contact, setContact] = useState('');
   const [budget, setBudget] = useState('');
   const [comment, setComment] = useState(preselectedItem ? `Interested in: ${preselectedItem.title}` : '');
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-  const availableServices = [
-    { name: 'BRANDING', desc: 'Brand Identity • Logo • Brand Guidelines' },
-    { name: 'CREATIVE CONTENT', desc: 'Photography • Videography • Video Editing' },
-    { name: 'WEBSITE DEVELOPMENT', desc: 'Business Website • E-Commerce • Custom Website' },
-    { name: 'APP DEVELOPMENT', desc: 'Mobile Apps • Web Apps • Custom Solutions' },
-    { name: 'MARKETING', desc: 'Strategy • Campaigns • Lead Generation' },
-    { name: 'DIGITAL MARKETING', desc: 'Social Media • SEO • Paid Advertising' },
-  ];
-
-  const toggleService = (service) => {
-    if (selectedServices.includes(service)) {
-      setSelectedServices(selectedServices.filter((s) => s !== service));
-    } else {
-      setSelectedServices([...selectedServices, service]);
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    if (onCompleted) onCompleted();
+    setSubmitting(true);
+    setError('');
+
+    try {
+      const response = await fetch(`${API_BASE}/api/submit-application`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          contact,
+          budget,
+          comment,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Something went wrong. Please try again.');
+      }
+
+      setSubmitted(true);
+      if (onSuccess) {
+        onSuccess({ name, contact });
+      } else if (onCompleted) {
+        onCompleted();
+      }
+    } catch (err) {
+      setError(err.message || 'Failed to submit. Please check your connection and try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -93,7 +106,7 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted }) 
                   PROJECT SUBMITTED TO PENTA PRIZM!
                 </h3>
                 <p className="font-montserrat text-neutral-300 text-xs sm:text-sm lg:text-base max-w-md mt-2 leading-relaxed">
-                  Thanks, <strong>{name || 'friend'}</strong>! Our team will reach out via <span className="text-[#ff3b19] font-mono">{contact}</span> shortly with a tailored proposal.
+                  Thanks, <strong>{name || 'friend'}</strong>! Our team will contact you within <span className="text-[#ff3b19] font-bold">24 hours</span> via <span className="text-[#ff3b19] font-mono">{contact}</span> with a tailored proposal.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -111,41 +124,8 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted }) 
                 className="space-y-8 sm:space-y-10"
               >
 
-                {/* Step 1: Choose Your Service */}
-                <div>
-                  <label className="block font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold mb-3 sm:mb-4">
-                    01 // CHOOSE YOUR SERVICE
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3.5">
-                    {availableServices.map((s, idx) => {
-                      const isSelected = selectedServices.includes(s.name);
-                      return (
-                        <motion.button
-                          key={s.name}
-                          type="button"
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => toggleService(s.name)}
-                          className={`p-3.5 sm:p-4 rounded-xl text-left transition-all cursor-pointer border min-h-[44px] ${
-                            isSelected
-                              ? 'bg-[#ff3b19] border-[#ff3b19] text-white shadow-lg shadow-[#ff3b19]/30'
-                              : 'bg-neutral-900 border-white/10 text-neutral-400 hover:text-white hover:border-white/30'
-                          }`}
-                        >
-                          <span className="font-bebas text-xl sm:text-2xl text-white tracking-wide uppercase block leading-tight">
-                            {s.name}
-                          </span>
-                          <span className={`text-[10px] sm:text-[11px] font-montserrat font-semibold mt-1 block ${isSelected ? 'text-white/90' : 'text-neutral-500'}`}>
-                            {s.desc}
-                          </span>
-                        </motion.button>
-                      );
-                    })}
-                  </div>
-                </div>
-
                 {/* Contact Details */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 sm:gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   <div>
                     <label className="block font-mono text-xs text-neutral-400 uppercase tracking-wider mb-1.5 sm:mb-2">
                       Your name:
@@ -161,19 +141,6 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted }) 
                   </div>
 
                   <div>
-                    <label className="block font-mono text-xs text-neutral-400 uppercase tracking-wider mb-1.5 sm:mb-2">
-                      Organisation name (optional):
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Your organisation"
-                      value={orgName}
-                      onChange={(e) => setOrgName(e.target.value)}
-                      className="w-full bg-neutral-900 border border-white/20 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#ff3b19] min-h-[44px]"
-                    />
-                  </div>
-
-                  <div className="sm:col-span-2 md:col-span-1">
                     <label className="block font-mono text-xs text-neutral-400 uppercase tracking-wider mb-1.5 sm:mb-2">
                       Email / Phone / WhatsApp:
                     </label>
@@ -211,24 +178,47 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted }) 
                     className="w-full bg-neutral-900 border border-white/20 rounded-xl px-4 py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#ff3b19] cursor-pointer min-h-[44px]"
                   >
                     <option value="">Select a budget range...</option>
-                    <option value="< $500">&lt; $500</option>
-                    <option value="$500 – $1,000">$500 – $1,000</option>
-                    <option value="$1,000 – $5,000">$1,000 – $5,000</option>
-                    <option value="$5,000 – $10,000">$5,000 – $10,000</option>
-                    <option value="$10,000+">$10,000+</option>
+                    <option value="< ₹5000">&lt; ₹5000</option>
+                    <option value="₹10,000 – ₹20,000">₹10,000 – ₹20,000</option>
+                    <option value="₹25,000 – ₹50,000">₹25,000 – ₹50,000</option>
+                    <option value="₹50,000 – ₹75,000">₹50,000 – ₹75,000</option>
+                    <option value="₹1,00,000+">₹1,00,000+</option>
                   </select>
                 </div>
 
                 {/* Submit CTA */}
                 <div className="pt-2">
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs sm:text-sm font-montserrat text-center"
+                    >
+                      {error}
+                    </motion.div>
+                  )}
                   <motion.button
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
+                    whileHover={submitting ? {} : { scale: 1.01 }}
+                    whileTap={submitting ? {} : { scale: 0.99 }}
                     type="submit"
-                    className="w-full bg-[#ff3b19] hover:bg-[#e02f0e] text-white font-montserrat font-extrabold text-xs sm:text-sm uppercase tracking-widest py-3.5 sm:py-4 rounded-full shadow-2xl shadow-[#ff3b19]/40 transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[48px]"
+                    disabled={submitting}
+                    className={`w-full text-white font-montserrat font-extrabold text-xs sm:text-sm uppercase tracking-widest py-3.5 sm:py-4 rounded-full shadow-2xl transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[48px] ${
+                      submitting
+                        ? 'bg-[#ff3b19]/60 shadow-[#ff3b19]/20 cursor-not-allowed'
+                        : 'bg-[#ff3b19] hover:bg-[#e02f0e] shadow-[#ff3b19]/40'
+                    }`}
                   >
-                    <span>SUBMIT YOUR PROJECT TO PENTA PRIZM</span>
-                    <Send className="w-4 h-4" />
+                    {submitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>SENDING...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>SUBMIT YOUR PROJECT TO PENTA PRIZM</span>
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
                   </motion.button>
                 </div>
 

@@ -4,6 +4,7 @@ import LoadingScreen from './components/LoadingScreen.jsx';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import ApplicationFormModal from './components/ApplicationFormModal.jsx';
+import SubmissionSuccessOverlay from './components/SubmissionSuccessOverlay.jsx';
 
 // Pages
 import HomePage from './pages/HomePage.jsx';
@@ -40,6 +41,7 @@ function AppInner() {
   const [applicationFormOpen, setApplicationFormOpen] = useState(false);
   const [preselectedApplication, setPreselectedApplication] = useState(null);
   const [preselectedCustomItem, setPreselectedCustomItem] = useState(null);
+  const [successOverlay, setSuccessOverlay] = useState({ isOpen: false, name: '', contact: '' });
 
   // Scroll restoration
   useEffect(() => {
@@ -114,6 +116,13 @@ function AppInner() {
     setApplicationFormOpen(true);
   };
 
+  const handleFormSuccess = (data) => {
+    setApplicationFormOpen(false);
+    setPreselectedApplication(null);
+    setPreselectedCustomItem(null);
+    setSuccessOverlay({ isOpen: true, name: data.name, contact: data.contact });
+  };
+
   return (
     <div className="min-h-screen bg-[#0c0c0c] text-white flex flex-col selection:bg-[#ff3b19] selection:text-white">
       <ScrollToTopOnNav />
@@ -145,6 +154,7 @@ function AppInner() {
               onOpenCustomWithItem={handleOpenCustomWithItem}
               isLoaded={!isLoading}
               preselectedCustomItem={preselectedCustomItem}
+              onFormSuccess={handleFormSuccess}
             />
           }
         />
@@ -177,6 +187,15 @@ function AppInner() {
         isOpen={applicationFormOpen}
         onClose={() => setApplicationFormOpen(false)}
         preselectedItem={preselectedApplication}
+        onSuccess={handleFormSuccess}
+      />
+
+      {/* Submission Success Overlay */}
+      <SubmissionSuccessOverlay
+        isOpen={successOverlay.isOpen}
+        name={successOverlay.name}
+        contact={successOverlay.contact}
+        onClose={() => setSuccessOverlay((s) => ({ ...s, isOpen: false }))}
       />
     </div>
   );

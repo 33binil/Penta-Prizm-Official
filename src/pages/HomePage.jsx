@@ -14,6 +14,7 @@ export default function HomePage({
   onOpenCustomWithItem,
   isLoaded,
   preselectedCustomItem,
+  onFormSuccess,
 }) {
   const schemas = [
     getOrganizationSchema(),
@@ -49,6 +50,7 @@ export default function HomePage({
         <InteractiveCustomForm
           preselectedItem={preselectedCustomItem}
           onCompleted={() => {}}
+          onSuccess={onFormSuccess}
         />
       </main>
     </>
