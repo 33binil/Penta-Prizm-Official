@@ -20,6 +20,10 @@ import PortfolioDetailPage from './pages/PortfolioDetailPage.jsx';
 import InsightsPage from './pages/InsightsPage.jsx';
 import InsightDetailPage from './pages/InsightDetailPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage.jsx';
+import TermsPage from './pages/TermsPage.jsx';
+import CookiePolicyPage from './pages/CookiePolicyPage.jsx';
+import DisclaimerPage from './pages/DisclaimerPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
 // Scroll to top on route change
@@ -157,6 +161,11 @@ function AppInner() {
         <Route path="/insights" element={<InsightsPage />} />
         <Route path="/insights/:slug" element={<InsightDetailPage onOpenContact={handleOpenContact} />} />
         <Route path="/contact" element={<ContactPage onOpenContact={handleOpenContact} />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage onOpenContact={handleOpenContact} />} />
+        <Route path="/terms-and-conditions" element={<TermsPage onOpenContact={handleOpenContact} />} />
+        <Route path="/terms" element={<TermsPage onOpenContact={handleOpenContact} />} />
+        <Route path="/cookie-policy" element={<CookiePolicyPage onOpenContact={handleOpenContact} />} />
+        <Route path="/disclaimer" element={<DisclaimerPage onOpenContact={handleOpenContact} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 

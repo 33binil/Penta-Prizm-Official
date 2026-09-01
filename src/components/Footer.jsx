@@ -18,11 +18,11 @@ export default function Footer({ onOpenContact }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 pb-12 sm:pb-14 border-b border-white/10"
+          className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-8 lg:gap-10 pb-12 sm:pb-14 border-b border-white/10"
         >
           
           {/* Brand Col */}
-          <div className="md:col-span-5 flex flex-col justify-between">
+          <div className="md:col-span-4 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <span className="font-bebas text-4xl sm:text-5xl text-white tracking-wider">
@@ -88,7 +88,7 @@ export default function Footer({ onOpenContact }) {
             </div>
           </div>
 
-          {/* Nav Links */}
+          {/* Services Col */}
           <div className="md:col-span-3">
             <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-4">
               // SERVICES
@@ -114,8 +114,31 @@ export default function Footer({ onOpenContact }) {
             </nav>
           </div>
 
+          {/* Legal Col */}
+          <div className="md:col-span-2">
+            <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-4">
+              // LEGAL
+            </span>
+            <nav className="flex flex-col gap-2.5" aria-label="Footer legal navigation">
+              {[
+                { label: 'Privacy Policy', to: '/privacy-policy' },
+                { label: 'Terms & Conditions', to: '/terms-and-conditions' },
+                { label: 'Cookie Policy', to: '/cookie-policy' },
+                { label: 'Disclaimer', to: '/disclaimer' },
+              ].map(({ label, to }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className="font-montserrat text-xs font-bold uppercase tracking-wider text-neutral-400 hover:text-white hover:translate-x-1 transition-all py-1"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
           {/* Contact Details */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-3">
             <span className="font-mono text-xs text-[#ff3b19] uppercase tracking-widest font-bold block mb-4">
               // LET'S CONNECT
             </span>
@@ -151,9 +174,28 @@ export default function Footer({ onOpenContact }) {
         </motion.div>
 
         {/* Bottom copyright line */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500 text-center sm:text-left">
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500 text-center md:text-left">
           <div>
             © 2026 PENTA PRIZM. ALL RIGHTS RESERVED.
+          </div>
+
+          {/* Inline Legal Quick Links */}
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px]">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span className="text-white/20">•</span>
+            <Link to="/terms-and-conditions" className="hover:text-white transition-colors">
+              Terms & Conditions
+            </Link>
+            <span className="text-white/20">•</span>
+            <Link to="/cookie-policy" className="hover:text-white transition-colors">
+              Cookie Policy
+            </Link>
+            <span className="text-white/20">•</span>
+            <Link to="/disclaimer" className="hover:text-white transition-colors">
+              Disclaimer
+            </Link>
           </div>
 
           <div className="flex items-center gap-4">
