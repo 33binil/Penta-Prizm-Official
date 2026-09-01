@@ -5,20 +5,23 @@ import { MARQUEE_ITEMS } from '../data/studioData.js';
 
 export default function Hero({ onOpenContact, isLoaded = true }) {
   return (
-    <section id="hero-section" className="relative w-full min-h-[92vh] bg-[#0c0c0c] flex flex-col justify-between pt-16 sm:pt-20 pb-0 overflow-hidden">
+    <section
+      id="hero-section"
+      className="relative w-full min-h-[92vh] md:min-h-screen md:h-screen md:max-h-[1080px] bg-[#0c0c0c] flex flex-col justify-between pt-16 sm:pt-18 md:pt-20 lg:pt-22 pb-0 overflow-hidden"
+    >
       {/* Background ambient lighting */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
         transition={{ duration: 1.2, ease: 'easeOut', delay: 0.1 }}
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] md:w-[600px] lg:w-[700px] h-[350px] sm:h-[500px] md:h-[600px] lg:h-[700px] bg-[#ff3b19]/10 rounded-full blur-[100px] sm:blur-[130px] md:blur-[150px] pointer-events-none"
       />
 
       {/* Main hero card container */}
-      <div className="relative w-full px-4 sm:px-8 lg:px-12 flex-1 flex flex-col justify-between">
+      <div className="relative w-full px-4 sm:px-8 lg:px-12 flex-1 min-h-0 flex flex-col justify-between">
         
         {/* Top bar inside hero image / canvas */}
-        <div className="flex items-start justify-between z-20 pt-2 sm:pt-4 gap-4">
+        <div className="flex items-start justify-between z-20 pt-2 sm:pt-3 md:pt-4 gap-4 shrink-0">
           {/* Left Hero sub-menu with dots */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -26,8 +29,8 @@ export default function Hero({ onOpenContact, isLoaded = true }) {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="flex flex-col gap-1 sm:gap-1.5 text-white/90"
           >
-            <span className="font-bebas text-base sm:text-lg tracking-wider text-white">PENTA PRIZM STUDIO</span>
-            <div className="flex flex-col gap-1 pl-1">
+            <span className="font-bebas text-base sm:text-lg md:text-xl tracking-wider text-white">PENTA PRIZM STUDIO</span>
+            <div className="flex flex-col gap-0.5 sm:gap-1 pl-1">
               <a href="#about" className="text-[10px] sm:text-[11px] font-montserrat font-bold tracking-widest text-white/80 hover:text-[#ff3b19] transition-colors flex items-center gap-1.5 py-0.5 group">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#ff3b19] group-hover:scale-125 transition-transform"></span>
                 ABOUT THE STUDIO
@@ -54,12 +57,12 @@ export default function Hero({ onOpenContact, isLoaded = true }) {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="flex items-center gap-2 sm:gap-3"
           >
-            <div className="hidden lg:flex flex-col items-end gap-1 max-w-[300px]">
+            <div className="hidden lg:flex flex-col items-end gap-1 max-w-[280px] xl:max-w-[320px]">
               <span className="font-bebas text-lg sm:text-xl text-[#ff3b19] tracking-wider leading-none">“</span>
               <p className="font-montserrat font-semibold text-[10px] sm:text-[11px] tracking-wide text-white/80 text-right leading-relaxed italic">
                 We don’t just make things look good — we make them mean something.
               </p>
-              <span className="mt-1 font-mono text-[9px] tracking-widest text-white/40 uppercase">
+              <span className="mt-0.5 font-mono text-[9px] tracking-widest text-white/40 uppercase">
                 — PENTA PRIZM
               </span>
             </div>
@@ -71,9 +74,9 @@ export default function Hero({ onOpenContact, isLoaded = true }) {
           initial={{ opacity: 0, y: 30, scale: 0.96 }}
           animate={isLoaded ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.96 }}
           transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative my-auto py-4 sm:py-8 lg:py-10 flex items-center justify-center"
+          className="relative my-auto py-2 sm:py-4 md:py-5 lg:py-6 flex-1 min-h-0 flex items-center justify-center"
         >
-          <div className="relative w-full max-w-lg sm:max-w-2xl lg:max-w-3xl mx-auto aspect-[16/10] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+          <div className="relative w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl mx-auto h-full max-h-[34vh] sm:max-h-[36vh] md:max-h-[38vh] lg:max-h-[42vh] xl:max-h-[46vh] aspect-[16/10] sm:aspect-[16/9] md:aspect-[16/8.5] lg:aspect-[16/8] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
             {/* Streetwear Model Photo */}
             <img
               src="/web1.png"
@@ -106,7 +109,7 @@ export default function Hero({ onOpenContact, isLoaded = true }) {
           initial={{ opacity: 0, y: 20 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.7, delay: 0.45 }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-4 text-center sm:text-left z-20 pb-3 sm:pb-4"
+          className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-center sm:text-left z-20 pb-2 sm:pb-3 md:pb-4 shrink-0"
         >
           <div className="font-montserrat font-extrabold text-[11px] sm:text-xs md:text-sm tracking-wider uppercase text-white/90">
             WE BUILD BRANDS <br className="hidden sm:inline"/> AND SHAPE DIGITAL EXPERIENCES
@@ -118,7 +121,7 @@ export default function Hero({ onOpenContact, isLoaded = true }) {
       </div>
 
       {/* Massive Bold Typography with Marquee Ribbon split */}
-      <div className="relative w-full select-none pt-2 sm:pt-4">
+      <div className="relative w-full select-none pt-1 sm:pt-2 md:pt-3 shrink-0">
         {/* Giant Top Headline Text */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -126,7 +129,7 @@ export default function Hero({ onOpenContact, isLoaded = true }) {
           transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="w-full text-center overflow-hidden leading-none"
         >
-          <h1 className="font-bebas text-[17vw] sm:text-[16vw] lg:text-[14vw] leading-[0.8] tracking-tight text-white uppercase font-normal scale-y-110">
+          <h1 className="font-bebas text-[17vw] sm:text-[15.5vw] md:text-[14vw] lg:text-[13vw] xl:text-[12.5vw] leading-[0.8] tracking-tight text-white uppercase font-normal scale-y-110">
             PENTA PRIZM
           </h1>
         </motion.div>
@@ -136,7 +139,7 @@ export default function Hero({ onOpenContact, isLoaded = true }) {
           initial={{ opacity: 0, scaleY: 0 }}
           animate={isLoaded ? { opacity: 1, scaleY: 1 } : { opacity: 0, scaleY: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="relative z-30 w-full bg-[#ff3b19] text-white py-2 sm:py-2.5 md:py-3 shadow-2xl overflow-hidden -mt-2 sm:-mt-4 lg:-mt-6 origin-bottom"
+          className="relative z-30 w-full bg-[#ff3b19] text-white py-2 sm:py-2 md:py-2.5 lg:py-3 shadow-2xl overflow-hidden -mt-2 sm:-mt-3 md:-mt-4 lg:-mt-5 origin-bottom"
         >
           <div className="animate-marquee-ltr items-center select-none">
             {/* First Set */}
