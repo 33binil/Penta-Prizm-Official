@@ -14,6 +14,8 @@ app.use(cors({
     'http://localhost:3001',
     'https://pentaprizm.com',
     'https://www.pentaprizm.com',
+    'https://pentaprizm.in',
+    'https://www.pentaprizm.in',
   ],
   credentials: true,
 }));
