@@ -8,15 +8,23 @@ config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'https://pentaprizm.com',
+  'https://www.pentaprizm.com',
+  'https://pentaprizm.in',
+  'https://www.pentaprizm.in',
+];
+
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'https://pentaprizm.com',
-    'https://www.pentaprizm.com',
-    'https://pentaprizm.in',
-    'https://www.pentaprizm.in',
-  ],
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || /^https:\/\/.*\.vercel\.app$/.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
