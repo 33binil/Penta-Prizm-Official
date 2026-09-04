@@ -46,6 +46,9 @@ function escapeHtml(str) {
 }
 
 function buildNotificationEmail(data) {
+  const emailVal = data.email || (isEmail(data.contact) ? data.contact : 'Not provided');
+  const phoneVal = data.phone || (!isEmail(data.contact) ? data.contact : 'Not provided');
+
   return {
     sender: { email: SENDER_EMAIL, name: SENDER_NAME },
     to: [{ email: NOTIFICATION_EMAIL }],
@@ -64,8 +67,12 @@ function buildNotificationEmail(data) {
               <td style="padding:10px 0;color:#fff;font-size:14px;border-bottom:1px solid #222;">${escapeHtml(data.name)}</td>
             </tr>
             <tr>
-              <td style="padding:10px 0;color:#777;font-size:13px;border-bottom:1px solid #222;">Contact</td>
-              <td style="padding:10px 0;color:#ff3b19;font-size:14px;border-bottom:1px solid #222;">${escapeHtml(data.contact)}</td>
+              <td style="padding:10px 0;color:#777;font-size:13px;border-bottom:1px solid #222;">Email</td>
+              <td style="padding:10px 0;color:#ff3b19;font-size:14px;border-bottom:1px solid #222;">${escapeHtml(emailVal)}</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 0;color:#777;font-size:13px;border-bottom:1px solid #222;">Phone</td>
+              <td style="padding:10px 0;color:#ff3b19;font-size:14px;border-bottom:1px solid #222;">${escapeHtml(phoneVal)}</td>
             </tr>
             <tr>
               <td style="padding:10px 0;color:#777;font-size:13px;border-bottom:1px solid #222;">Budget</td>
@@ -90,9 +97,12 @@ function buildNotificationEmail(data) {
 }
 
 function buildConfirmationEmail(data) {
+  const recipientEmail = data.email || (isEmail(data.contact) ? data.contact : '');
+  const preferredContact = [data.email, data.phone].filter(Boolean).join(' / ') || data.contact;
+
   return {
     sender: { email: SENDER_EMAIL, name: SENDER_NAME },
-    to: [{ email: data.email }],
+    to: [{ email: recipientEmail }],
     subject: `Thanks ${data.name}! We received your project inquiry`,
     htmlContent: `
       <!DOCTYPE html>
@@ -115,7 +125,7 @@ function buildConfirmationEmail(data) {
           </div>
 
           <p style="color:#ccc;font-size:14px;line-height:1.7;margin:0 0 16px 0;">
-            Our team will contact you at <strong style="color:#ff3b19;">${escapeHtml(data.contact)}</strong> within 24 hours with a tailored proposal for your project.
+            Our team will contact you at <strong style="color:#ff3b19;">${escapeHtml(preferredContact)}</strong> within 24 hours with a tailored proposal for your project.
           </p>
 
           <p style="color:#ccc;font-size:14px;line-height:1.7;margin:0 0 24px 0;">
@@ -137,9 +147,10 @@ function isEmail(str) {
 
 app.post('/api/submit-application', async (req, res) => {
   try {
-    const { name, contact, budget, comment } = req.body;
+    const { name, email, phone, budget, comment } = req.body;
+    const contact = req.body.contact || [email, phone].filter(Boolean).join(' | ');
 
-    if (!name || !contact) {
+    if (!name || (!contact && !email && !phone)) {
       return res.status(400).json({ error: 'Name and Email/Phone are required.' });
     }
 
@@ -154,14 +165,15 @@ app.post('/api/submit-application', async (req, res) => {
       'Accept': 'application/json',
     };
 
-    const notificationPayload = buildNotificationEmail({ name, contact, budget, comment });
+    const notificationPayload = buildNotificationEmail({ name, email, phone, contact, budget, comment });
 
     const emailPromises = [
       axios.post(BREVO_API_URL, notificationPayload, { headers }),
     ];
 
-    if (isEmail(contact)) {
-      const confirmationPayload = buildConfirmationEmail({ name, contact, budget, comment, email: contact });
+    const recipientEmail = email || (isEmail(contact) ? contact : null);
+    if (recipientEmail && isEmail(recipientEmail)) {
+      const confirmationPayload = buildConfirmationEmail({ name, email: recipientEmail, phone, contact, budget, comment });
       emailPromises.push(axios.post(BREVO_API_URL, confirmationPayload, { headers }));
     }
 

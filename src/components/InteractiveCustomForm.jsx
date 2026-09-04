@@ -6,7 +6,8 @@ const API_BASE = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || 'http://
 
 export default function InteractiveCustomForm({ preselectedItem, onCompleted, onSuccess }) {
   const [name, setName] = useState('');
-  const [contact, setContact] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [budget, setBudget] = useState('');
   const [comment, setComment] = useState(preselectedItem ? `Interested in: ${preselectedItem.title}` : '');
   const [submitted, setSubmitted] = useState(false);
@@ -24,13 +25,19 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted, on
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
-          contact,
+          email,
+          phone,
+          contact: `${email} | ${phone}`,
           budget,
           comment,
         }),
       });
 
-      const data = await response.json();
+      let data = {};
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      }
 
       if (!response.ok) {
         throw new Error(data.error || 'Something went wrong. Please try again.');
@@ -38,7 +45,7 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted, on
 
       setSubmitted(true);
       if (onSuccess) {
-        onSuccess({ name, contact });
+        onSuccess({ name, email, phone, contact: `${email} | ${phone}` });
       } else if (onCompleted) {
         onCompleted();
       }
@@ -106,7 +113,7 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted, on
                   PROJECT SUBMITTED TO PENTA PRIZM!
                 </h3>
                 <p className="font-montserrat text-neutral-300 text-xs sm:text-sm lg:text-base max-w-md mt-2 leading-relaxed">
-                  Thanks, <strong>{name || 'friend'}</strong>! Our team will contact you within <span className="text-[#ff3b19] font-bold">24 hours</span> via <span className="text-[#ff3b19] font-mono">{contact}</span> with a tailored proposal.
+                  Thanks, <strong>{name || 'friend'}</strong>! Our team will contact you within <span className="text-[#ff3b19] font-bold">24 hours</span> via <span className="text-[#ff3b19] font-mono">{email || phone}</span> with a tailored proposal.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -125,7 +132,7 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted, on
               >
 
                 {/* Contact Details */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
                   <div>
                     <label className="block font-mono text-xs text-neutral-400 uppercase tracking-wider mb-1.5 sm:mb-2">
                       Your name:
@@ -142,14 +149,28 @@ export default function InteractiveCustomForm({ preselectedItem, onCompleted, on
 
                   <div>
                     <label className="block font-mono text-xs text-neutral-400 uppercase tracking-wider mb-1.5 sm:mb-2">
-                      Email / Phone / WhatsApp:
+                      Email address:
                     </label>
                     <input
-                      type="text"
+                      type="email"
                       required
-                      placeholder="email@example.com / +91..."
-                      value={contact}
-                      onChange={(e) => setContact(e.target.value)}
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full bg-neutral-900 border border-white/20 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#ff3b19] min-h-[44px]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-mono text-xs text-neutral-400 uppercase tracking-wider mb-1.5 sm:mb-2">
+                      Phone / WhatsApp:
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="+91 98765 43210"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                       className="w-full bg-neutral-900 border border-white/20 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#ff3b19] min-h-[44px]"
                     />
                   </div>
